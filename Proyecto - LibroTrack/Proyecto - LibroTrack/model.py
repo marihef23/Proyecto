@@ -237,6 +237,6 @@ class Biblioteca:
     def listar_historial_prestamos_usuario(self, usuario_id):
         return Prestamo.get_historial_by_usuario_id(usuario_id)
 
-    def buscar_usuarios(self, termino, criterio): # NUEVO MÉTODO
+    def buscar_usuarios(self, termino, criterio): 
         """Busca usuarios por CI o Nombre a través de la clase Usuario."""
         return Usuario.search(termino, criterio)

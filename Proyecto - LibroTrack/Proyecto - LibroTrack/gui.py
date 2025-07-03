@@ -295,7 +295,7 @@ class MainWindow(tk.Tk):
             messagebox.showwarning("Selección Incompleta", "Debe seleccionar/ingresar un libro y un usuario.", parent=self.frame_registrar_prestamo_tab); return
 
         libro_id = None
-        if hasattr(self, 'map_libros_disponibles_prestamo'): # Intentar con el mapa primero (selección de lista)
+        if hasattr(self, 'map_libros_disponibles_prestamo'): 
             libro_id = self.map_libros_disponibles_prestamo.get(libro_sel_str)
 
         if libro_id is None and libro_sel_str.isdigit(): # Si no está en mapa y es número, tratar como ID
@@ -368,8 +368,8 @@ class MainWindow(tk.Tk):
         if hasattr(self, 'map_libros_prestados_devolucion'):
             libro_id = self.map_libros_prestados_devolucion.get(libro_prestado_sel_str)
 
-        if libro_id is None: # Si no está en el mapa (pudo ser entrada manual)
-            # Intentar extraer ID si la entrada es "ID - Título..." o solo "ID"
+        if libro_id is None: 
+            
             try:
                 if " - " in libro_prestado_sel_str:
                     libro_id_str_part = libro_prestado_sel_str.split(" - ")[0]
@@ -378,7 +378,7 @@ class MainWindow(tk.Tk):
                 elif libro_prestado_sel_str.isdigit(): # Si solo ingresó un ID
                     libro_id = int(libro_prestado_sel_str)
             except ValueError:
-                pass # No se pudo convertir a int
+                pass 
 
         print(f"DEBUG Devolución: Libro Seleccionado/Escrito='{libro_prestado_sel_str}' -> ID Obtenido={libro_id}")
 

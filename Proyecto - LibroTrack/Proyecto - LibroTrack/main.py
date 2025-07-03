@@ -7,7 +7,7 @@ def main():
     print("Iniciando LibroTrack...")
 
     # Asegurar que la base de datos y las tablas estén creadas
-    # Esto es importante hacerlo antes de que la GUI intente acceder a la BD.
+    
     database.crear_tablas()
     print("Base de datos verificada/creada.")
 

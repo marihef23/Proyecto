@@ -43,7 +43,7 @@ def crear_tablas():
         );
         """)
         conn.commit()
-        # print("Tablas verificadas/creadas exitosamente.") # Comentado para no ser muy verboso
+        
     except sqlite3.Error as e:
         print(f"Error al crear las tablas: {e}")
     finally:
@@ -77,7 +77,7 @@ def obtener_libros_db():
         cursor = conn.cursor()
         cursor.execute("SELECT id, titulo, autor, genero, disponible FROM Libros ORDER BY titulo")
         filas = cursor.fetchall()
-        # Convertiremos estas filas a objetos Libro en model.py
+        # Convertir estas filas a objetos Libro en model.py
         return filas
     except sqlite3.Error as e:
         print(f"Error al obtener libros: {e}")
@@ -114,7 +114,7 @@ def eliminar_libro_db(id_libro):
         cursor = conn.cursor()
         cursor.execute("DELETE FROM Libros WHERE id = ?", (id_libro,))
         conn.commit()
-        return cursor.rowcount > 0 # Retorna True si la eliminación fue exitosa
+        return cursor.rowcount > 0 
     except sqlite3.Error as e:
         print(f"Error al eliminar libro: {e}")
         return False
@@ -130,7 +130,7 @@ def obtener_libro_por_id_db(id_libro):
         cursor = conn.cursor()
         cursor.execute("SELECT id, titulo, autor, genero, disponible FROM Libros WHERE id = ?", (id_libro,))
         fila = cursor.fetchone()
-        return fila # Se convertirá a objeto Libro en model.py
+        return fila 
     except sqlite3.Error as e:
         print(f"Error al obtener libro por ID: {e}")
         return None
@@ -153,7 +153,7 @@ def buscar_libros_db(termino_busqueda, tipo_busqueda):
         cursor = conn.cursor()
         cursor.execute(query, (param,))
         filas = cursor.fetchall()
-        return filas # Se convertirán a objetos Libro en model.py
+        return filas 
     except sqlite3.Error as e:
         print(f"Error al buscar libros: {e}")
         return []
@@ -225,7 +225,7 @@ def eliminar_usuario_db(id_usuario):
         cursor = conn.cursor()
         cursor.execute("DELETE FROM Usuarios WHERE id = ?", (id_usuario,))
         conn.commit()
-        return cursor.rowcount > 0 # Retorna True si la eliminación fue exitosa
+        return cursor.rowcount > 0 
     except sqlite3.Error as e:
         print(f"Error al eliminar usuario: {e}")
         return False
@@ -241,7 +241,7 @@ def obtener_usuario_por_id_db(id_usuario):
         cursor = conn.cursor()
         cursor.execute("SELECT id, ci, nombre, telefono FROM Usuarios WHERE id = ?", (id_usuario,))
         fila = cursor.fetchone()
-        # Se convertirá a objeto Usuario en model.py
+        
         return fila
     except sqlite3.Error as e:
         print(f"Error al obtener usuario por ID {id_usuario}: {e}")
@@ -398,7 +398,7 @@ def obtener_prestamo_activo_por_libro_id_db(libro_id):
         if conn:
             conn.close()
 
-# Nueva función para historial de préstamos de un usuario
+
 def obtener_prestamos_por_usuario_id_db(usuario_id):
     """Obtiene todos los préstamos (activos y devueltos) para un usuario específico."""
     conn = None
@@ -422,7 +422,7 @@ def obtener_prestamos_por_usuario_id_db(usuario_id):
         if conn:
             conn.close()
 
-# Nueva función para buscar usuarios
+
 def buscar_usuarios_db(termino_busqueda, criterio_busqueda):
     """Busca usuarios por CI o Nombre."""
     conn = None
@@ -454,18 +454,4 @@ if __name__ == '__main__':
     print("Inicializando la base de datos...")
     crear_tablas()
     print("Base de datos lista.")
-    # Ejemplo de uso 
-    # id_nuevo = agregar_libro_db("El Principito", "Antoine de Saint-Exupéry", "Infantil")
-    # if id_nuevo:
-    #     print(f"Libro agregado con ID: {id_nuevo}")
-    #     libro = obtener_libro_por_id_db(id_nuevo)
-    #     print(f"Libro obtenido: {libro}")
-    #     actualizar_libro_db(id_nuevo, "El Principito", "Antoine de Saint-Exupéry", "Fábula", True)
-    #     libro_actualizado = obtener_libro_por_id_db(id_nuevo)
-    #     print(f"Libro actualizado: {libro_actualizado}")
-    # libros = obtener_libros_db()
-    # print(f"Todos los libros: {libros}")
-    # busqueda = buscar_libros_db("Principito", "titulo")
-    # print(f"Búsqueda: {busqueda}")
-    # eliminar_libro_db(id_nuevo)
-    # print(f"Libros después de eliminar: {obtener_libros_db()}")
+    
