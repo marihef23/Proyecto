@@ -1,9 +1,4 @@
 import sqlite3
-# model.py necesita ser importado para _libro_desde_fila, pero esto crea una dependencia circular
-# si model.py también importa database.py para las funciones CRUD.
-# Solución: Pasar la clase Libro como argumento o mover _libro_desde_fila a model.py
-# Por simplicidad y para mantener la lógica de BD en database.py,
-# vamos a definir una tupla simple aquí y convertirla a objeto Libro en model.py
 
 DB_NAME = "librotrack.db"
 
