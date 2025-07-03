@@ -1,5 +1,5 @@
 import datetime
-import database # Importamos el módulo de base de datos
+import database 
 
 class Libro:
     def __init__(self, id_libro, titulo, autor, genero, disponible=True):

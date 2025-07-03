@@ -1,7 +1,5 @@
 import database
-from gui import MainWindow # Importar la clase MainWindow de gui.py
-# Ya no necesitamos importar Biblioteca, Libro, Usuario, Prestamo directamente aquí
-# a menos que queramos hacer alguna operación antes o después de la GUI.
+from gui import MainWindow 
 
 def main():
     print("Iniciando LibroTrack...")

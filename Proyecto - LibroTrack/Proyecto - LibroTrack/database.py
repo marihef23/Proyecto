@@ -1,5 +1,6 @@
 import sqlite3
 
+
 DB_NAME = "librotrack.db"
 
 def obtener_conexion_db():
@@ -59,9 +60,9 @@ def agregar_libro_db(titulo, autor, genero):
         conn = obtener_conexion_db()
         cursor = conn.cursor()
         cursor.execute("INSERT INTO Libros (titulo, autor, genero, disponible) VALUES (?, ?, ?, ?)",
-                       (titulo, autor, genero, True)) # Por defecto disponible es True
+                       (titulo, autor, genero, True)) 
         conn.commit()
-        return cursor.lastrowid # Retorna el ID del libro insertado
+        return cursor.lastrowid 
     except sqlite3.Error as e:
         print(f"Error al agregar libro: {e}")
         return None
@@ -77,7 +78,7 @@ def obtener_libros_db():
         cursor = conn.cursor()
         cursor.execute("SELECT id, titulo, autor, genero, disponible FROM Libros ORDER BY titulo")
         filas = cursor.fetchall()
-        # Convertir estas filas a objetos Libro en model.py
+        
         return filas
     except sqlite3.Error as e:
         print(f"Error al obtener libros: {e}")
@@ -98,7 +99,7 @@ def actualizar_libro_db(id_libro, titulo, autor, genero, disponible):
             WHERE id = ?
         """, (titulo, autor, genero, disponible, id_libro))
         conn.commit()
-        return cursor.rowcount > 0 # Retorna True si la actualización fue exitosa
+        return cursor.rowcount > 0 
     except sqlite3.Error as e:
         print(f"Error al actualizar libro: {e}")
         return False
@@ -172,7 +173,7 @@ def agregar_usuario_db(ci, nombre, telefono):
         cursor.execute("INSERT INTO Usuarios (ci, nombre, telefono) VALUES (?, ?, ?)",
                        (ci, nombre, telefono))
         conn.commit()
-        return cursor.lastrowid # Retorna el ID del usuario insertado
+        return cursor.lastrowid 
     except sqlite3.Error as e:
         print(f"Error al agregar usuario '{nombre}' (CI: {ci}): {e}")
         return None
@@ -188,7 +189,7 @@ def obtener_usuarios_db():
         cursor = conn.cursor()
         cursor.execute("SELECT id, ci, nombre, telefono FROM Usuarios ORDER BY nombre")
         filas = cursor.fetchall()
-        # Se convertirán a objetos Usuario en model.py
+        
         return filas
     except sqlite3.Error as e:
         print(f"Error al obtener usuarios: {e}")
@@ -209,7 +210,7 @@ def actualizar_usuario_db(id_usuario, ci, nombre, telefono):
             WHERE id = ?
         """, (ci, nombre, telefono, id_usuario))
         conn.commit()
-        return cursor.rowcount > 0 # Retorna True si la actualización fue exitosa
+        return cursor.rowcount > 0 
     except sqlite3.Error as e:
         print(f"Error al actualizar usuario ID {id_usuario}: {e}")
         return False
@@ -316,7 +317,7 @@ def obtener_prestamos_activos_db():
     try:
         conn = obtener_conexion_db()
         cursor = conn.cursor()
-        # Seleccionar más información para mostrar (títulos de libros, nombres de usuarios)
+        
         cursor.execute("""
             SELECT p.id, p.libro_id, l.titulo, p.usuario_id, u.nombre, p.fecha_prestamo
             FROM Prestamos p
@@ -326,7 +327,7 @@ def obtener_prestamos_activos_db():
             ORDER BY p.fecha_prestamo
         """)
         filas = cursor.fetchall()
-        return filas # Se convertirán a objetos o tuplas informativas en model/GUI
+        return filas 
     except sqlite3.Error as e:
         print(f"Error al obtener préstamos activos: {e}")
         return []
@@ -389,7 +390,7 @@ def obtener_prestamo_activo_por_libro_id_db(libro_id):
             FROM Prestamos p
             WHERE p.libro_id = ? AND p.fecha_devolucion IS NULL
         """, (libro_id,))
-        fila = cursor.fetchone() # Debería haber como máximo uno
+        fila = cursor.fetchone() 
         return fila
     except sqlite3.Error as e:
         print(f"Error al obtener préstamo activo por libro ID {libro_id}: {e}")
@@ -413,7 +414,7 @@ def obtener_prestamos_por_usuario_id_db(usuario_id):
             ORDER BY p.fecha_prestamo DESC
         """, (usuario_id,))
         filas = cursor.fetchall()
-        # La conversión a objetos Prestamo se hará en model.py
+        
         return filas
     except sqlite3.Error as e:
         print(f"Error al obtener préstamos para el usuario ID {usuario_id}: {e}")
@@ -430,7 +431,7 @@ def buscar_usuarios_db(termino_busqueda, criterio_busqueda):
         print("Error: Criterio de búsqueda de usuario no válido.")
         return []
     
-    # Asegurarse que la columna es segura para interpolar (evitar SQL injection aunque aquí es controlada)
+    
     columna_segura = criterio_busqueda 
     
     query = f"SELECT id, ci, nombre, telefono FROM Usuarios WHERE {columna_segura} LIKE ? ORDER BY nombre"
@@ -441,7 +442,7 @@ def buscar_usuarios_db(termino_busqueda, criterio_busqueda):
         cursor = conn.cursor()
         cursor.execute(query, (param,))
         filas = cursor.fetchall()
-        # La conversión a objetos Usuario se hará en model.py
+        
         return filas
     except sqlite3.Error as e:
         print(f"Error al buscar usuarios por {criterio_busqueda} con término '{termino_busqueda}': {e}")
